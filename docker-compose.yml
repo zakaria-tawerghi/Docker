@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  adguard:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    networks:
+      vlan30_macvlan:
+        ipv4_address: 10.245.0.10
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+    restart: unless-stopped
+
+networks:
+  vlan30_macvlan:
+    external: true
