@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:latest
+    restart: unless-stopped
+    networks:
+      vlan30_macvlan:
+        ipv4_address: 10.245.0.11
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  vlan30_macvlan:
+    external: true
