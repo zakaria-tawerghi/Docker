@@ -1,0 +1,13 @@
+# VLAN 30 (AdGuard & Uptime Kuma)
+docker network create -d macvlan \
+  --subnet=10.245.0.0/27 \
+  --gateway=10.245.0.1 \
+  -o parent=ens37.30 \
+  vlan30_macvlan
+
+# VLAN 105 (WordPress & MySQL)
+docker network create -d macvlan \
+  --subnet=5.5.5.0/29 \
+  --gateway=5.5.5.1 \
+  -o parent=ens37.105 \
+  vlan105_macvlan
