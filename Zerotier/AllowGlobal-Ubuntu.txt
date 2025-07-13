@@ -1,0 +1,9 @@
+cd /var/lib/zerotier-one
+cd /var/lib/zerotier-one/networks.d/
+sudo nano /var/lib/zerotier-one/networks.d/<network-id>.local.conf
+allowManaged=1
+allowGlobal=1
+allowDefault=0
+allowDNS=0
+sudo systemctl restart zerotier-one
+zerotier-cli listnetworks
