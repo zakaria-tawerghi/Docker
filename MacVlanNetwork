@@ -17,4 +17,20 @@ sudo netplan apply
 sudo ip link add link ens37 name ens37.30 type vlan id 30
 sudo ip link set ens37.30 up
 
-docker network create -d macvlan --subnet 10.0.10.0/26 --gateway 10.0.10.1 --ip-range 10.0.10.2/32 -o parent=ens37 macnet
+docker network create -d macvlan --subnet 10.0.10.0/26 --gateway 10.0.10.1 --ip-range 10.0.10.2/32 -o parent=ens37.30 macnet
+
+network:
+  version: 2
+  ethernets:
+    ens34:
+      dhcp4: true
+    ens37:
+      dhcp4: no
+      optional: true
+  vlans:
+    ens37.30:
+      id: 30
+      link: ens37
+      addresses: []
+      optional: true
+
