@@ -4,14 +4,14 @@ services:
   db:
     image: mysql:5.7
     container_name: wordpress_db
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wpuser
       MYSQL_PASSWORD: wppassword
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
-      - db_data:/var/lib/mysql
+      - wordpress_db_data:/var/lib/mysql
     networks:
       vlan105_macvlan:
         ipv4_address: 5.5.5.4
@@ -21,21 +21,15 @@ services:
     container_name: wordpress_site
     depends_on:
       - db
-    networks:
-      vlan105_macvlan:
-        ipv4_address: 5.5.5.5
-    restart: always
+    restart: unless-stopped
     environment:
       WORDPRESS_DB_HOST: 5.5.5.4:3306
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppassword
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - ./php/php.ini:/usr/local/etc/php/conf.d/uploads.ini
-
-volumes:
-  db_data:
-
-networks:
-  vlan105_macvlan:
-    external: true
+      - ./html:/var/www/html
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    networks:
+      vlan105_macvlan:
+        ipv4_address: 5.5.5.5
