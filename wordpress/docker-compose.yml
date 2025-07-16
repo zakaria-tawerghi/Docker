@@ -1,35 +1,41 @@
-version: '3.8'
-
+version: "3.7"
 services:
   db:
     image: mysql:5.7
-    container_name: wordpress_db
+    container_name: wordpress-db
     restart: unless-stopped
     environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wpuser
       MYSQL_PASSWORD: wppassword
-      MYSQL_ROOT_PASSWORD: rootpassword
-    volumes:
-      - wordpress_db_data:/var/lib/mysql
     networks:
-      vlan105_macvlan:
-        ipv4_address: 5.5.5.4
+      macnet:
+        ipv4_address: 10.0.10.9
+    volumes:
+      - db_data:/var/lib/mysql
 
   wordpress:
     image: wordpress:latest
-    container_name: wordpress_site
+    container_name: wordpress-app
+    restart: unless-stopped
     depends_on:
       - db
-    restart: unless-stopped
     environment:
-      WORDPRESS_DB_HOST: 5.5.5.4:3306
+      WORDPRESS_DB_HOST: 10.0.10.9:3306
       WORDPRESS_DB_USER: wpuser
       WORDPRESS_DB_PASSWORD: wppassword
       WORDPRESS_DB_NAME: wordpress
-    volumes:
-      - ./html:/var/www/html
-      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
     networks:
-      vlan105_macvlan:
-        ipv4_address: 5.5.5.5
+      macnet:
+        ipv4_address: 10.0.10.10
+    volumes:
+      - /home/zakaria/wordpress/html:/var/www/html
+      - /home/zakaria/wordpress/php-config/wordpress.ini:/usr/local/etc/php/conf.d/wordpress.ini
+
+volumes:
+  db_data:
+
+networks:
+  macnet:
+    external: true
