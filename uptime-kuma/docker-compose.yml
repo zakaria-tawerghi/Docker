@@ -1,17 +1,16 @@
-  GNU nano 7.2                                                          docker-compose.yml                                                                   
 version: "3.7"
 services:
   uptime-kuma:
     container_name: uptime-kuma
     image: louislam/uptime-kuma:latest
     restart: unless-stopped
-    volumes:
-      - ./data:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      vlan105_macvlan:
-        ipv4_address: 5.5.5.11
+      macnet:
+        ipv4_address: 10.0.10.12
+    volumes:
+      - /home/zakaria/uptime-kuma/data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
-  vlan105_macvlan:
+  macnet:
     external: true
