@@ -6,7 +6,7 @@ docker run -d \
   --name adguardhome \
   --restart unless-stopped \
   --network macnet \
-  --ip 10.0.10.10 \
+  --ip 10.0.10.11 \
   -v /home/zakaria/adgurad/work:/opt/adguardhome/work \
   -v /home/zakaria/adgurad/conf:/opt/adguardhome/conf \
   adguard/adguardhome
