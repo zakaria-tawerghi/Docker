@@ -1,0 +1,14 @@
+mkdir -p /home/zakaria/wordpress/html
+mkdir -p /home/zakaria/wordpress/php-config
+
+
+nano /home/zakaria/wordpress/php-config/wordpress.ini
+file_uploads = On
+memory_limit = 512M
+upload_max_filesize = 512M
+post_max_size = 512M
+max_execution_time = 600
+
+
+
+nano /home/zakaria/wordpress/docker-compose.yml
