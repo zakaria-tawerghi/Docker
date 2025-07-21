@@ -1,0 +1,1 @@
+mkdir -p /home/zakaria/uptime-kuma/data
