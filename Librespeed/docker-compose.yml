@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  speedtest:
+    container_name: speedtest
+    image: ghcr.io/librespeed/speedtest:latest
+    restart: always
+    environment:
+      MODE: standalone
+      WEBPORT: 8080
+    networks:
+      macnet:
+        ipv4_address: 10.10.10.13
+    volumes:
+      - /home/zakaria/speedtest:/var/www/html
+
+networks:
+  macnet:
+    external: true
