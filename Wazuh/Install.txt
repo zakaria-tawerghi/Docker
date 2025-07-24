@@ -1,0 +1,17 @@
+Increase max_map_count on your Docker host:
+
+sysctl -w vm.max_map_count=262144
+
+
+Update the vm.max_map_count setting in /etc/sysctl.conf to set this value permanently. To verify after rebooting, run “sysctl vm.max_map_count”.
+vm.max_map_count=262144
+
+Single-node Deployment
+Clone the Wazuh repository to your system:
+
+
+git clone https://github.com/wazuh/wazuh-docker.git -b v4.12.0
+
+Then enter into the single-node directory to execute all the commands described below within this directory.
+
+docker-compose -f generate-indexer-certs.yml run --rm generator
